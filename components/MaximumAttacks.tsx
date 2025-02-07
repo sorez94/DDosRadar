@@ -1,4 +1,4 @@
-export const revalidate = 5;
+export const revalidate = 1;
 export default async function MaximumAttacks() {
 
     const response = await fetch("https://api-ddos.tic.ir/api/top-five-lrl", {
@@ -10,7 +10,7 @@ export default async function MaximumAttacks() {
         throw new Error("Failed to fetch data");
     }
     const data = await response.json();
-    const maxObj = data.reduce((max, curr) =>
+    const maxObj = data.reduce((max: any, curr: any) =>
             curr.value > max.value ? curr : max,
         data[0]
     );
