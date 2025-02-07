@@ -17,8 +17,8 @@ export default async function MaximumAttacks() {
     const maxValueGbps = Number((maxObj.value / 1e9).toFixed(2));
 
     const restGbps = data
-        .filter((item) => item !== maxObj)
-        .map((item) => Number((item.value / 1e9).toFixed(2)));
+        .filter((item: any) => item !== maxObj)
+        .map((item: any) => Number((item.value / 1e9).toFixed(2)));
     return (
         <div className="bg-[#091028]/100 backdrop-blur-md text-white px-4 py-2 shadow-lg border border-gray-800">
             <div className="flex justify-start items-center py-4">
@@ -43,8 +43,8 @@ export default async function MaximumAttacks() {
                 <p className="mb-[6px] text-[18px]">
                     Of The{" "}
                     <span className="text-[#474496] underline whitespace-break-spaces">
-            Mitigated
-          </span>{" "}
+                Mitigated
+              </span>{" "}
                     Attacks
                 </p>
             </div>
