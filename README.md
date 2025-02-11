@@ -71,10 +71,10 @@ Push to the branch (git push origin feature-branch)
 
 Open a pull request
 
-License
+## License
 
 This project is licensed under the MIT License.
 
-Contact
+## Contact
 
 For any inquiries, reach out via email or open an issue on GitHub.
