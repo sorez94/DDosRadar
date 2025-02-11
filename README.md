@@ -41,7 +41,7 @@ npm or yarn
 Steps
 
 # Clone the repository
-git clone https://github.com/yourusername/DDosRadar.git
+git clone https://github.com/sorez94/DDosRadar/
 cd DDosRadar
 
 # Install dependencies
