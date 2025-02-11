@@ -7,7 +7,7 @@ const Sidebar = () => {
     const pathname = usePathname();
     const router = useRouter();
 
-    const handleNavigation = (route) => {
+    const handleNavigation = (route: any ) => {
         router.push(route);
     };
 
