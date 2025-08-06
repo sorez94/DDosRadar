@@ -1,38 +1,57 @@
 import MitigatedAttacks from "@/components/MitigatedAttacks";
-import MaximumAttacks from "@/components/MaximumAttacks";
 import SumOfMitigatedAttacks from "@/components/SumOfMitigatedAttacks";
 import AttackDuration from "@/components/AttackDuration";
+import MaximumAttacks from "@/components/MaximumAttacks";
+
+import fetch from 'node-fetch';
+const https = require('https');
+const agent = new https.Agent({
+    rejectUnauthorized: false,
+});
+
+interface MitigatedAttacksData {
+    count: number;
+}
+interface DroppedPacketsData {
+    sum: number;
+}
+interface DroppedBytesData {
+    sum: number;
+}
 
 export const revalidate = 1;
+
 export default async function Home() {
     const mitigatedAttacksRes = await fetch("https://api-ddos.tic.ir/api/count-chart", {
-        cache: 'no-cache',
-        keepalive: true
+        agent
     });
+
     if (!mitigatedAttacksRes.ok) {
         throw new Error("Failed to fetch data");
     }
-    const mitigatedAttacksData = await mitigatedAttacksRes.json();
+    const mitigatedAttacksData = await mitigatedAttacksRes.json() as MitigatedAttacksData; // تایپ‌دهی به داده‌ها
     const mitigatedAttacksValue = mitigatedAttacksData.count;
 
     const droppedPacketsRes = await fetch("https://api-ddos.tic.ir/api/sum-pps", {
-        cache: 'no-cache',
-        keepalive: true
+        agent
     });
+
     if (!droppedPacketsRes.ok) {
         throw new Error("Failed to fetch data");
     }
-    const droppedPacketsData = await droppedPacketsRes.json();
+
+    const droppedPacketsData = await droppedPacketsRes.json() as DroppedPacketsData;
     const droppedPacketsValue: number = Number((droppedPacketsData.sum / 10e8).toFixed(2));
 
     const droppedBytesRes = await fetch("https://api-ddos.tic.ir/api/sum-lrl", {
-        cache: 'no-cache',
-        keepalive: true
+        agent
     });
+
     if (!droppedBytesRes.ok) {
         throw new Error("Failed to fetch data");
     }
-    const droppedBytesData = await droppedBytesRes.json();
+
+    const droppedBytesData = await droppedBytesRes.json() as DroppedBytesData;
     const droppedBytesValue: number = Number((droppedBytesData.sum / 10e15).toFixed(2));
 
     return (
