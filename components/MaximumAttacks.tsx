@@ -1,15 +1,24 @@
-    export const revalidate = 1;
+import fetch from 'node-fetch';
+const https = require('https');
+const agent = new https.Agent({
+    rejectUnauthorized: false,
+});
+
+interface IMaximumAttacks {
+    value: number;
+}
+
+export const revalidate = 1;
     export default async function MaximumAttacks() {
 
         const response = await fetch("https://api-ddos.tic.ir/api/top-five-lrl", {
-            cache: "no-cache",
-            keepalive: true,
+            agent
         });
 
         if (!response.ok) {
             throw new Error("Failed to fetch data");
         }
-        const data = await response.json();
+        const data = await response.json() as IMaximumAttacks[];
         const maxObj = data.reduce((max: any, curr: any) =>
                 curr.value > max.value ? curr : max,
             data[0]
