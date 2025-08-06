@@ -1,6 +1,6 @@
 interface MitigatedAttacksProps {
     title: string;
-    value: string;
+    value: number;
     subtitle: string;
     highlight?: string;
     icon?: string;
