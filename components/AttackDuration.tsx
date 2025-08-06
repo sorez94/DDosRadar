@@ -1,13 +1,22 @@
+import fetch from 'node-fetch';
+const https = require('https');
+const agent = new https.Agent({
+    rejectUnauthorized: false,
+});
+
+interface IDurationAttacks {
+    duration: number;
+}
+
 export default async function AttackDuration() {
     // Fetch the duration data
     const durationAttacksRes = await fetch("https://api-ddos.tic.ir/api/duration", {
-        cache: "no-cache",
-        keepalive: true
+        agent,
     });
     if (!durationAttacksRes.ok) {
         throw new Error("Failed to fetch data");
     }
-    const durationAttacksData = await durationAttacksRes.json();
+    const durationAttacksData = await durationAttacksRes.json() as IDurationAttacks;
     const durationAttacksValue = durationAttacksData.duration;
 
     // Convert milliseconds to days, hours, and minutes
